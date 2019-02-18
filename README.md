@@ -1,5 +1,5 @@
 # bingwpy
-Bing daily desktop  wallpaper. 
+Bing daily desktop  wallpaper for cinnamon de
 
 # Install
 
