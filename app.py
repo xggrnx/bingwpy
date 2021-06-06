@@ -5,6 +5,14 @@ import urllib.parse
 
 from gi.repository import Gio
 
+DESKTOP_ENV = os.environ.get('DESKTOP_SESSION')
+
+GSETTINGS_STR = {
+    'cinnamon': 'org.cinnamon.desktop.background',
+    'ubuntu': 'org.gnome.desktop.background'
+}
+
+GSETTINGS_PATH = GSETTINGS_STR.get(DESKTOP_ENV)
 
 API_URL = 'https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1'
 BING_URL = 'https://www.bing.com'
@@ -23,8 +31,8 @@ def set_wallpaper(data):
         img_url = urllib.parse.urljoin(BING_URL, _img)
         dl_name = 'today{}'.format(ext)
         wp_path = os.path.join(PATH, dl_name)
-        urllib.request.urlretrieve(img_url, wp_path)                        
-        gsettings = Gio.Settings.new('org.cinnamon.desktop.background')
+        urllib.request.urlretrieve(img_url, wp_path)
+        gsettings = Gio.Settings.new(GSETTINGS_PATH)
         gsettings.set_string('picture-uri', 'file://{}'.format(wp_path))
         gsettings.apply()
 
